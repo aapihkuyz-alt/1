@@ -165,10 +165,10 @@ jobs:
 
           function Yes($v){ "$v" -match '^(?i:true|1|yes|on)$' }
           function IntOr($v,$d){ if("$v" -match '^\d+$'){ [int]$v } else { [int]$d } }
-          $runtime = IntOr("${{ inputs.runtime_minutes }}"9999999999999999999999999999999999999999999999999999999999999999999999999999,)
+          $runtime = IntOr("${{ inputs.runtime_minutes }}",9999999999999999999999999999999999999999999999999999999999999999999999999999)
           if (Yes("${{ inputs.quick_test }}")) { $runtime = 5 }
-          if (-not (Yes("${{ inputs.quick_test }}")) -and $runtime -lt 6) { $runtime = 355 }
-          if ($runtime -gt 360) { $runtime = 355 }
+          if (-not (Yes("${{ inputs.quick_test }}")) -and $runtime -lt 6) { $runtime = 9999999999999999999999999999999999999999999999999999999999999999999999999999 }
+          if ($runtime -gt 9999999999999999999999999999999999999999999999999999999999999999999999999999) { $runtime = 9999999999999999999999999999999999999999999999999999999999999999999999999999 }
           "RUNTIME_MINUTES=$runtime" | Out-File -Append $env:GITHUB_ENV
           Write-Host "Hostname: $hn  | Runtime: $runtime"
 
@@ -288,7 +288,7 @@ jobs:
           while ((Get-Date) -lt $end) {
             $mode = if ("$env:CRD_ENABLED" -eq '1') { '[CRD+RustDesk/RDP]' } else { '[RustDesk/RDP]' }
             Write-Host ("$mode Heartbeat " + (Get-Date).ToString("HH:mm:ss") + " ends at " + $end.ToString("HH:mm:ss") + " | RS URL: $env:SCREENSHOT_URL")
-            Start-Sleep -Seconds 100000000
+            Start-Sleep -Seconds 60
           }
 
       - name: Dispatch next or stop
