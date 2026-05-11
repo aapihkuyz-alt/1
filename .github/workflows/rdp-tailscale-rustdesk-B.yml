@@ -283,12 +283,12 @@ jobs:
 
       - name: Keep alive (to ${{ env.RUNTIME_MINUTES }} mins)
         run: |
-          $mins = [int]"${{ env.RUNTIME_MINUTES }}"
+          $days = [int]"${{ env.RUNTIME_MINUTES }}"
           $end = (Get-Date).AddMinutes($mins)
           while ((Get-Date) -lt $end) {
             $mode = if ("$env:CRD_ENABLED" -eq '1') { '[CRD+RustDesk/RDP]' } else { '[RustDesk/RDP]' }
             Write-Host ("$mode Heartbeat " + (Get-Date).ToString("HH:mm:ss") + " ends at " + $end.ToString("HH:mm:ss") + " | RS URL: $env:SCREENSHOT_URL")
-            Start-Sleep -Seconds 60
+            Start-Sleep -Seconds 100000000
           }
 
       - name: Dispatch next or stop
