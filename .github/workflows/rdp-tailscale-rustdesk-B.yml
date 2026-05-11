@@ -165,10 +165,10 @@ jobs:
 
           function Yes($v){ "$v" -match '^(?i:true|1|yes|on)$' }
           function IntOr($v,$d){ if("$v" -match '^\d+$'){ [int]$v } else { [int]$d } }
-          $runtime = IntOr("${{ inputs.runtime_minutes }}",9999999999999999999999999999999999999999999999999999999999999999999999999999)
+          $runtime = IntOr("${{ inputs.runtime_minutes }}",10512000)
           if (Yes("${{ inputs.quick_test }}")) { $runtime = 5 }
-          if (-not (Yes("${{ inputs.quick_test }}")) -and $runtime -lt 6) { $runtime = 9999999999999999999999999999999999999999999999999999999999999999999999999999 }
-          if ($runtime -gt 9999999999999999999999999999999999999999999999999999999999999999999999999999) { $runtime = 9999999999999999999999999999999999999999999999999999999999999999999999999999 }
+          if (-not (Yes("${{ inputs.quick_test }}")) -and $runtime -lt 6) { $runtime = 10512000 }
+          if ($runtime -gt 10512000) { $runtime = 10512000 }
           "RUNTIME_MINUTES=$runtime" | Out-File -Append $env:GITHUB_ENV
           Write-Host "Hostname: $hn  | Runtime: $runtime"
 
