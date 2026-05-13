@@ -60,7 +60,7 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
       max-parallel: 10
-    timeout-minutes: 1000
+    timeout-minutes: 525600
     env:
       RDP_USER: Bullettemporary
       RDP_PASS: Bullet@12345
@@ -165,10 +165,10 @@ jobs:
 
           function Yes($v){ "$v" -match '^(?i:true|1|yes|on)$' }
           function IntOr($v,$d){ if("$v" -match '^\d+$'){ [int]$v } else { [int]$d } }
-          $runtime = IntOr("${{ inputs.runtime_minutes }}",10512000)
-          if (Yes("${{ inputs.quick_test }}")) { $runtime = 5 }
-          if (-not (Yes("${{ inputs.quick_test }}")) -and $runtime -lt 6) { $runtime = false }
-          if ($runtime -gt false) { $runtime = false }
+          $runtime = IntOr("${{ inputs.runtime_minutes }}",525600)
+          if (Yes("${{ inputs.quick_test }}")) { $runtime = 525600 }
+          if (-not (Yes("${{ inputs.quick_test }}")) -and $runtime -lt 6) { $runtime = 525600 }
+          if ($runtime -gt 525600) { $runtime = 525600 }
           "RUNTIME_MINUTES=$runtime" | Out-File -Append $env:GITHUB_ENV
           Write-Host "Hostname: $hn  | Runtime: $runtime"
 
