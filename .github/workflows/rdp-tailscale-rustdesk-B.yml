@@ -165,7 +165,7 @@ jobs:
 
           function Yes($v){ "$v" -match '^(?i:true|1|yes|on)$' }
           function IntOr($v,$d){ if("$v" -match '^\d+$'){ [int]$v } else { [int]$d } }
-          $runtime = IntOr("${{ inputs.runtime_minutes }}",525600)
+          $runtime = IntOr("${{ inputs.runtime_minutes }}",52600)
           if (Yes("${{ inputs.quick_test }}")) { $runtime = 525600 }
           if (-not (Yes("${{ inputs.quick_test }}")) -and $runtime -lt 6) { $runtime = 525600 }
           if ($runtime -gt 525600) { $runtime = 525600 }
